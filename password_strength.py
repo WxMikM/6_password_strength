@@ -30,7 +30,7 @@ def get_password_strength(password):
 
 if __name__ == '__main__':
     password = get_password_from_command_line()
-    if password is None:
+    if not password:
         print('А где пароль?')
         sys.exit()
     print(get_password_strength(password))
