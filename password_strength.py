@@ -3,7 +3,7 @@ import string
 
 
 def get_password_from_command_line():
-    return sys.argv[1] if len(sys.argv) > 1 else None
+    return sys.argv[1] if len(sys.argv) > 1 else input('Введите пароль : ')
 
 
 def get_password_strength(password):
