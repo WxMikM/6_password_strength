@@ -1,9 +1,13 @@
-import sys
+import sys, os
 import string
 
 
 def get_password_from_command_line():
     return sys.argv[1] if len(sys.argv) > 1 else input('Введите пароль : ')
+
+
+def clear_console():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def get_password_strength(password):
@@ -12,17 +16,15 @@ def get_password_strength(password):
     if len(password) < 8:
         password_strength -= 3
 
-    # символы должны быть в разных регистрах и хотя бы одна цифра
-    upper = any(char in string.ascii_uppercase for char in password)
-    lower = any(char in string.ascii_lowercase for char in password)
-    number = any(char in string.digits for char in password)
-    if not (upper and lower and number):
+    has_upper_case = any(char in string.ascii_uppercase for char in password)
+    has_lower_case = any(char in string.ascii_lowercase for char in password)
+    has_number = any(char in string.digits for char in password)
+    if not (has_upper_case and has_lower_case and has_number):
         password_strength -= 3
 
-    # хотя бы 1 спецсимвол
-    special_char = not all(
-        char in string.ascii_uppercase or char in string.ascii_lowercase or char in string.digits for char in password)
-    if not special_char:
+    has_special_char = not all(
+        char in string.ascii_uppercase + string.ascii_lowercase + string.digits for char in password)
+    if not has_special_char:
         password_strength -= 3
 
     return password_strength
@@ -32,5 +34,6 @@ if __name__ == '__main__':
     password = get_password_from_command_line()
     if not password:
         print('А где пароль?')
-        sys.exit()
+        sys.exit(1)
+    clear_console()
     print(get_password_strength(password))
