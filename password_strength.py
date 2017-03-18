@@ -1,9 +1,9 @@
-import sys, os
+import sys, os, getpass
 import string
 
 
 def get_password_from_command_line():
-    return sys.argv[1] if len(sys.argv) > 1 else input('Введите пароль : ')
+    return sys.argv[1] if len(sys.argv) > 1 else getpass.getpass("Введите ваш пароль: ")
 
 
 def clear_console():
@@ -36,4 +36,4 @@ if __name__ == '__main__':
         print('А где пароль?')
         sys.exit(1)
     clear_console()
-    print(get_password_strength(password))
+    print('Оценка (от 1 до 10):', get_password_strength(password))
